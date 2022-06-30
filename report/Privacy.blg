@@ -1,0 +1,66 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Privacy.aux
+The style file: alpha.bst
+Database file #1: biblch.bib
+Warning--I'm ignoring PrimforW3's extra "publisher" field
+--line 162 of file biblch.bib
+Warning--to sort, need author or key in W3CDId21
+Warning--to sort, need author or key in Prom
+Name 3 in "Jeonghyuk Lee and Jaekyung Choi and Jihye Kim, and Hyunok Oh" has a comma at the end for entry LCKO21
+while executing---line 1185 of file alpha.bst
+Name 3 in "Jeonghyuk Lee and Jaekyung Choi and Jihye Kim, and Hyunok Oh" has a comma at the end for entry LCKO21
+while executing---line 1185 of file alpha.bst
+Too many commas in name 1 of "Alexander Mühle, Andreas Grüner, Tatiana Gayvoronskaya, Christoph Meinel" for entry MGG18
+while executing---line 1185 of file alpha.bst
+Too many commas in name 1 of "Alexander Mühle, Andreas Grüner, Tatiana Gayvoronskaya, Christoph Meinel" for entry MGG18
+while executing---line 1185 of file alpha.bst
+Too many commas in name 1 of "Alexander Mühle, Andreas Grüner, Tatiana Gayvoronskaya, Christoph Meinel" for entry MGG18
+while executing---line 1250 of file alpha.bst
+Name 3 in "Jeonghyuk Lee and Jaekyung Choi and Jihye Kim, and Hyunok Oh" has a comma at the end for entry LCKO21
+while executing---line 1250 of file alpha.bst
+Warning--empty author in Prom
+Warning--empty journal in Prom
+Warning--empty booktitle in PrimforW3
+You've used 18 entries,
+            2543 wiz_defined-function locations,
+            691 strings with 8672 characters,
+and the built_in function-call counts, 8670 in all, are:
+= -- 883
+> -- 361
+< -- 28
++ -- 119
+- -- 117
+* -- 599
+:= -- 1292
+add.period$ -- 62
+call.type$ -- 18
+change.case$ -- 110
+chr.to.int$ -- 18
+cite$ -- 25
+duplicate$ -- 393
+empty$ -- 659
+format.name$ -- 136
+if$ -- 1904
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 15
+newline$ -- 92
+num.names$ -- 64
+pop$ -- 126
+preamble$ -- 1
+purify$ -- 128
+quote$ -- 0
+skip$ -- 359
+stack$ -- 0
+substring$ -- 476
+swap$ -- 154
+text.length$ -- 28
+text.prefix$ -- 5
+top$ -- 0
+type$ -- 144
+warning$ -- 5
+while$ -- 83
+width$ -- 19
+write$ -- 246
+(There were 6 error messages)

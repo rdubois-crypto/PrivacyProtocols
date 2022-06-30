@@ -1,0 +1,622 @@
+\documentclass[11pt]{llncs2e/llncs}
+\usepackage{amsmath,amscd,amsfonts,amssymb,mathrsfs}
+\usepackage{rotating}
+\usepackage[english]{babel}
+%\usepackage[latin1]{inputenc} % si WINDOWS
+%\usepackage[utf8]{inputenc} % si LINUX
+%\usepackage[T1]{fontenc}
+
+\usepackage{graphicx}
+%\usepackage[xetex]{graphicx}
+
+\usepackage{slashbox}
+\usepackage{multirow}
+
+\addtolength{\hoffset}{-1cm}
+\addtolength{\textwidth}{2cm} 
+\addtolength{\voffset}{-2cm}
+\addtolength{\textheight}{4cm} 
+
+
+\usepackage{url}
+\usepackage{algorithm}
+
+%\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+%\usepackage{varioref}
+
+\pagestyle{plain}
+
+%\usepackage{array}
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+%\usepackage{amssymb}
+
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+%    unicode=false,          % non-Latin characters in Acrobat's bookmarks
+%    pdftoolbar=true,        % show Acrobat's toolbar?
+%    pdfmenubar=true,        % show Acrobat's menu?
+%    pdffitwindow=false,     % window fit to page when opened
+%    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={Trapping ECC : Invalid Curve Bug Attacks}, 
+  % title
+%    pdfauthor={Renaud Dubois and Aurore Guillevic and Marine Sengelin Le Breton}     % author
+%    pdfsubject={Subject},   % subject of the document
+%    pdfcreator={Creator},   % creator of the document
+%    pdfproducer={Producer}, % producer of the document
+%    pdfkeywords={keywords}, % list of keywords
+%    pdfnewwindow=true,      % links in new window
+%    colorlinks=true,        % false: boxed links; true: colored links
+%    linkcolor=c12,          % color of internal links
+%    citecolor=c25,          % color of links to bibliography
+%    filecolor=c18,          % color of file links
+%    urlcolor=c13            % color of external links
+}
+
+% \usepackage{tikz}
+% \usetikzlibrary{shapes,arrows}
+% \usetikzlibrary{positioning}
+% \usetikzlibrary{positioning,shadows,backgrounds}
+% \usetikzlibrary{trees}
+
+\newcommand{\gray}[1]{\textcolor{gray}{#1}}
+\newcommand{\lightgray}[1]{\textcolor{lightgray}{#1}}
+
+
+\DeclareMathOperator*{\cat}{\parallel}
+\newcommand{\hw}{\operatorname{\mathsf{H}}}
+\newcommand{\pr}{\operatorname{P}}
+\newcommand{\esp}{\operatorname{E}}
+\newcommand{\cor}{\operatorname{Cor}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\sep}{\;\vert\;}
+\newcommand{\I}{\operatorname{I}}
+\newcommand{\C}{\operatorname{\mathscr{C}}}
+\newcommand{\X}{\mathfrak{S}}
+\newcommand{\Y}{\mathfrak{S}'}
+
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+
+\newcommand{\G}{\mathbb{G}}
+
+\newcommand{\PO}{\mathcal{O}}
+\newcommand{\F}{{\mathbb{F}\!}}
+\newcommand{\Fp}{\F_p}
+\newcommand{\Fpk}{\F_{p^k}}
+\newcommand{\Fr}{\F_r}
+
+\newcommand{\Fq}{\F_q}
+
+\newcommand{\PK}{\mbox{PK}}
+\newcommand{\SK}{\mbox{SK}}
+
+\newcommand{\added}[1]{\textbf{#1}}
+\usepackage[normalem]{ulem}
+%\sout{Texte a barrer}
+%\xout{Texte a hachurer}
+%\uwave{Texte a souligner par une vaguelette}
+\newcommand{\removed}[1]{\sout{#1}}
+
+% renaud.dubois@wanadoo.fr,guillevi@di.ens.fr,marine.sengelin@gmail.com
+
+\begin{document}
+\title{CoinCurves : Publicly Verifiable Randomness of Elliptic Parameters from block
+chain unpredictability}
+ 
+   \author{
+    Renaud Dubois\inst{1}}
+  
+   \institute{Thales Communications and Security\\
+    160 Boulevard de Valmy -- BP 82\\
+    92704 Colombes Cedex -- France\\
+    firstname.lastname@thalesgroup.com
+   }
+
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+Trusted cryptosystem parameters generation is a critic concern since the Snowden Revelations.
+In this paper we describe a method to  generate state of the art elliptic curve
+parameters. We solve the following problems : generation for high security
+level, customization of the parameters, security proof 
+taking account of modern attacks while maintaining compatibility with the
+existing standards. 
+
+{\bf keywords:}{ Trusted Cryptosystems, CoinCurves, elliptic curves, NSA, Publicly Verifiable Randomness, kleptography}
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+Generating cryptographic trusted parameters is a long standing concern. It has became a major one since the Snowden revelations \cite{NYT}. The leaks suggest that NSA as sole editor of NIST standards was able to 
+chose the constant parameters (elliptic points) such that the Dual EC-DRBG output become predictable.
+%I do not trust constant. This should be true for any constant. 
+Recently, results  about the constant of SHA-1 algorithm with "free start"
+underline that no constant should never be set without an explanation to give confidence in results. Here the constant could have been set from an 
+approved PRGN. This problem is a bit more complex for elliptic curve cryptography because there are constraints not easy to fulfill. 
+Curves are chosen to have nearly prime order, which is not the average case. More criterias are described in \cite{SafeCurves}. One of those criterias is the rigidity,
+which aims at restricting the capacity for the designer to chose a specific elliptic curve.
+Here to choices arise :
+\begin{itemize}
+\item choosing a curve for maximum efficiency, letting no doubt for any of the parameters,
+\item giving a full non ambiguous (rigid) description for family of curves.
+\end{itemize}
+A solution to first choice is to use a robust and curves like ec5519 \cite{ec5195} or GLV4 \cite{MicrosoftGLV4}.
+The limitations with this solution are : 
+\begin{itemize}
+\item it limits the possibility to a single curve, which is dangerous if some vulnerability is found in the future,
+\item it is not compatible with the FIPS Verifiable Randomness process described in \cite{ANSIX962}, 
+\item whatever the efforts, for a paranoid user, there remains some variability about the underlying fields, and the very specific choice can always be discussed.
+\end{itemize}
+For the second choice, the way to provide a fully rigid description is not obvious. It relies in the use of a PRNG and a seed.
+However the choice of the seed is always hard to justify. It could be a constant, but some may argue that many constants could be chosen (zero, pi, one, etc.).
+In \cite{MillionDollar} the authors propose to use the results of many independant lotteries gathered together to build a seed to solve the problem of Verifiable Randomness.
+While ingenious, the solution appears difficult to implement and verify. The specification set the security level to 128 bits. While sufficient for the current recommandation for civilian use, 
+the solution should be scalable.
+Implementing this solution appears to be incompatible with high security level. The generation of a random elliptic curve implies to compute the factorization of random values (meaningly $q-1$, and the CM-discriminant).
+ For high security level the factorization of those values may take to long to enable the verification (current RSA factoring largest number remains RSA-768). 
+We solve this problem by introducing a criteria of easyness of factorization.
+
+
+
+
+\subsubsection{Our contribution}
+We suggest to use the Bitcoin blockchain to provide a easy and quick to verify way to provide publicly verifiable random generator.
+We also introduce a test to avoid to loop into hard factorization problems during the generation process, making the generation efficient. We provide a set of elliptic curves with various structures. 
+We also introduce a feature of 'verifiable copyright' of the curve. The aim is to provide a way for a designer to introduce a license in the use of its elliptic curve. We provide an example of a curve 
+integrating the LGPL in its construction. It can also be used by harware manufacturer to customize parameters for a client. 
+A full implementation written in Magma Language is provided at the end of this article. It has been used to provide the example curves. The resulting parameters are compatible with X9.62 so that 
+cryptographic implementation using those curves can obtain a FIPS certification.
+ 
+
+
+\section{State of the Art}
+
+\subsection{Trapping cryptosystems}
+
+Kleptography has been introduced in \cite{Crypto96-89} where the authors describe a way to trap RSA key generation. Another concern is the capacity for a 
+designer to trap domain parameters (an elliptic curve) so that a protocol build over this curve will be broken. In \cite{Teske}, Teske shows how a secret isogeny between a weak curve over $\mathbb{F}_{2^161}$ 
+and an apparent safe one can be constructed. With the knowledge of the secret isogeny, the DLP is broken over the weak curve, without being noticed. In \cite{Magueule}, the authors invert the principle of 
+the bug attack : knowing a secret rare bug, a secure curve is designed with a secret trapped exponent. The knowledge of the exponent enables the trapper to break static ECDH and ECKCDSA verification.
+
+All those traps are possible if the designer is free to choose its curve. Following the 'nothing up my sleeves' principle, we describe a method to provide provably verifiable random curve.
+
+
+\subsection{Security criteria}
+
+To resist modern attacks, an elliptic curve must fulfill the following requirements :
+\begin{itemize}
+\item rho-security is related to the computational complexity of the elliptic curve discrete logarithm (ECDLP),
+\item twist security is related to the computational complexity of the elliptic curve discrete logarithm (ECDLP) over the twist of the considered curve,
+\item embedded degree is related to the infeasibility of transfers,
+\item complex multiplication discriminant is related to.
+\end{itemize}
+Those criterias are mandatory. SafeCurve insists on other criterias that are linked to the representation of the curve.
+ Today the standards are written to support Weierstrass representation. However it is possible to switch from one representation to another using the right isogeny,
+with some additional conditions on the order of the curve $q$.
+
+
+\subsection{Current solutions}
+
+A method to generate pseudo random curves is described in X9.62 \cite{ANSIX962}.
+This method takes as input a Bitstring seed, and the prime field $\mathbb{F}_p$.
+This method could be considered as 'semi-rigid', because if some vulnerability is known with a low but computable 
+(say $O(2^{64})$), a saboter could iterate over the seed value until a week curve is found. (BadA55 example).
+This process should also be updated to take into account the state of the art security criteria.
+
+\cite{MillionDollar} introduced the use a publicly verifiable seed. 
+The parameters of a cryptosystem must be set by following this process :
+\begin{enumerate}
+\item A designer specifies the generation process of the parameters, then the design is commited and timestamped,
+\item A standardizer select a design, then pick a PVRS (Publicly Verifiable Random Seed), apply the method and publish the resulting parameters,
+\item Users may at any time that the parameters have truly been set following the process.
+\end{enumerate}
+
+
+
+We submitted this paper for the submission deadline with examples. This paper and the code will not be modified.
+We will use as seed the first blocks after the notification of the papers, which are unknown at the present moment.
+During the latency, we will compute the ConfCoinCurves parameters. 
+The method is valid and can be repeated as long as a commitment of code and ulterior PVS is done.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The CoinCurve method}
+
+
+\subsection{Choices}
+
+We sum up the possible choices when picking an elliptic curve :
+\begin{itemize}
+\item C1 : the underlying prime field shall be sparse or pseudo random,
+\item C2 : the order of the curve shall be of the form q'=q or q'=4q depending if a classic weierstrass or Edwards form is chosen,
+\item C3 : the coefficients of the curve shall be pseudo random, or be set to optimal values,
+\end{itemize}
+
+We made the following choices : we took as prime field for 192, 256 and 521 bits the same prime as the FIPS186-4 used 
+to define the curve P192, P256 and P521. We took curves of prime order and set the coefficient $a=-3$. If one want to modify one of the choices,
+then the code can be trivially modify to implement the required choice :
+\begin{itemize}
+\item choose the value of the prime p using the PRNG
+\item change the test IsPrime(q) by IsPrime(q div 4) and ((q mod 4) eq 0)
+\item choose the value of a using the PRNG
+\end{itemize}
+
+
+
+\subsection{Picking a verifiable seed}
+
+We will generate two set of curves in the lifetime of this article :
+\begin{itemize}
+\item for the example we will take the first two HashBlocks of the Bitcoin block chain after Christmas,
+\item this article will be commited during the review process, in the meantime, we will begin to compute a new curve with the two HashBlocks one day after the submission date
+, i.e the first two blocks after 01/28/2018, at midnight.
+\end{itemize}
+If the article is accepted, the toy curves will be replaced by the result of the code one the two new HashBlocks. Reviewers are encouraged to process the 
+code by their own to check the compliance of the results.
+
+\subsection{Copyrighting the curve}
+
+We suggest a practical enhancement. Instead of using directly the seed, the initial seed can also use a commited seed. 
+This commited seed can be either a full license, or the hash of a license. Doing so, one could 
+
+The commited field for our curves is
+"This curve has been generated for academic purposes as described in the article 'Coincurves '. It can be freely used by anyone without additional warranty.
+ Its security has been reviewed by international experts during the submission process of the IACR conference moncul. "
+The hash of this license is XXX. It has been used to generate the example curves (see Appendix).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{High security level and factorization}
+
+The previous construction fulfill our initial requirements, however a problem arise for high security level.
+The computation of the embedded degree and CM-discriminant requires the factorization of random number. If one of this value is a RSA number, then
+the factorization cannot be performed. Our experiments showed that for 512 bits security level (required for some military applications), the 
+previous algorithm do not terminate in a practical time. For this reason we introduce a new criteria in the loop : the n-ecm factorizability.
+
+We underline that the efficiency of the factorization is not important here, the aim is to find the better tradeoff so that a non ambiguous curve is
+returned as fast as possible. To do so, a quick test to check if the three values can be easily factorized with ECM is performed. 
+This means that potentially good curves are rejected by the algorithm, but as long as the designer and the verifier use the same algorithm, there is no 
+way to exploit this trait.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusion}
+
+\appendix
+
+\section{Magma Code}
+
+\begin{verbatim}
+/********************************************************************/
+/*                         Test Properties                          */
+/********************************************************************/
+function Is_Factorizable(n)
+      	if n eq 1 then return true;end if;
+
+	Facto,_,Cofact:=Factorisation(n:ECMLimit:=20000,MPQSLimit:=0);
+
+
+	
+	if #Facto eq 0 then return false;end if;
+	
+        Prod:=&*[Facto[i][1]^Facto[i][2]: i in [1..#Facto]];
+        
+        if(Prod eq n) then return true;end if;
+
+        return true;
+        
+	/*return IsPrime(Cofact[1]);*/
+
+end function;
+/*******************************************/
+/* 1.1 RHO SECURITY			   */
+/*******************************************/
+/* Compute Curve Order*/
+function Is_OrderSafe(p,a,b)
+	Fp:=GF(p);
+	E_Fp := EllipticCurve([Fp!a, Fp ! b]);
+	q:=SEA(E_Fp: MaxSmooth := 1/*,AbortLevel:=2*/);
+	print "q=",q;
+	return IsPrime(q),q;
+end function;
+
+/*******************************************/
+/* 1.2 TWISTED RHO SECURITY		   */
+/*******************************************/
+/* To be Twisted Secure, the rho security of the twisted curve must be greater than 2^100*/
+/* i.e the largest divisor of p+1
+
+/* Compute largest Twist Curve Order divisor for twist rho security*/
+function Twist_RhoSecurity(p,q)
+ t:=p+1-q;
+ /*twist order*/
+ res:=Factorization(p+1+t);
+ /*largest divisor */
+ largest_divisor:=res[#res][1];
+
+ return Log(largest_divisor)/Log(2);
+end function;
+
+/*A curve is TwistSafe if its rho difficulty is greater than 2^100*/
+function Is_TwistRhoSafe(p,q)
+ if Twist_RhoSecurity(p,q) ge 100 then
+  return true;
+ else
+  return false;
+ end if;
+end function;
+
+/***********************************************/
+/* 1.3	Transfers Security		       */
+/***********************************************/
+/* Embedded Degree is the smallest k such that p^k= 1 mod q*/
+/* This is equivalent to p^q-1=1 mod q, meaning that k divides q-1*/
+function Embedded_Degree(p,q)
+  Fq:=GF(q);
+  res:=Divisors(q-1);
+  
+  for k in [1..#res] do
+	print "Divisors",k,"/",#res;
+  	if (Fq!p^res[k] eq Fq!1) then
+		return res[k];
+	end if; 
+  end for;
+  return 0;
+end function;
+/***************************************************/
+/* 1.4 CM Field Discriminant			   */
+/***************************************************/
+function CMDiscriminant(p,q)
+ t:=p+1-q;
+ res:=Divisors(Abs(t^2-4*p));
+ /*largest square divisor of t2-4p*/
+ s2:=1;
+ print "Factorization of t2-4p done",res;
+ for i in res do
+	if(IsSquare(i)) then s2:=i;end if;
+ end for;
+
+ CMD:=((t^2-4*p) div s2);
+
+ if ( (CMD mod 4) eq 1) then
+	return CMD;
+ else
+	return 4*CMD;
+ end if;
+end function;
+
+/********************************************************************/
+/*	Conversion function					    */
+/********************************************************************/
+function AsciiToHexa(StringByte)
+  DecToHexDigit:=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+  DecByte:=StringToCode(StringByte);
+ 
+  First:=DecByte mod 16;
+  Second:=DecByte div 16;
+  return DecToHexDigit[Second+1] cat DecToHexDigit[First+1] ;
+end function;
+
+function StringToHexa(Text)
+ HexaLicenseText:="";
+  
+ for i in [1..#Text] do
+   HexaLicenseText:=HexaLicenseText cat AsciiToHexa(Text[i]);
+ end for;
+ 
+ return HexaLicenseText;
+end function;
+
+
+/*******************************************************************/
+/*		NIST FIPS 186-3 page 108 : D.6 Procedure   	   */
+/*******************************************************************/
+
+/*Semi-generic model :set a=-3*/
+/* input : seed : the 160-bit string in hexadecimal format*/
+/* note : D5 and D.6 are not compatible if a!=-3*/
+
+
+/*Computation of the 'c' coefficient as D.5*/
+function NIST_Coeff_C(seed, BitLength)
+  h:=SHA1(seed); /*ex: SHA1(616263)=sha1sum "abc"*/
+  v:=(BitLength-1) div 160;
+  w:=BitLength-160*v-1;
+  
+  /*print "v=",v,"w=",w,"2pw=",2^w;
+  print StringToInteger(h,16);*/
+  
+  h0:=IntegerToString(StringToInteger(h,16) mod 2^w,16);
+  String_c:=h0; 
+  for i in [1..v] do
+    z:=StringToInteger(seed,16)+i;
+    hi:=SHA1(IntegerToString(z,16));
+    String_c:=String_c cat hi;
+  end for;
+  return String_c;
+end function;
+
+
+
+function NIST_Coeff_B(p,c,a)
+ GFp:=GF(p);
+ R:=GFp!a^3/GFp!c;
+ 
+ if(IsSquare(R)) then
+  return true, Sqrt(R);
+ else return false, 0;
+ end if;
+end function;
+
+
+
+Seed_NISTP192:="3045ae6fc8422f64ed579528d38120eae12196d5";
+Seed_NISTP256:="c49d360886e704936a6678e1139d26b7819f7e90";
+Seed_NISTP521:="d09e8800291cb85396cc6717393284aaa0da64ba";
+
+/* old
+NIST_Coeff_C(Seed_NISTP192,192);
+NIST_Coeff_C(Seed_NISTP256,256);
+NISTP521_c:=NIST_Coeff_C(Seed_NISTP521,521);
+NISTP521_p:=2^521-1;
+
+NISTP521_b:= NIST_Coeff_B(NISTP521_p, StringToInteger(NISTP521_c,16),-3);
+print Integers()!NISTP521_b;
+*/
+
+/********************************************************************/
+/*                         Curve Generation : NIST Compatible       */
+/********************************************************************/
+
+
+/* Parameter Deterministic Selection*/
+function Param_NIST_FromSeed(HexaSeed, BitLength,p,a)
+  
+  c:=NIST_Coeff_C(HexaSeed, BitLength);
+  flag,b:=NIST_Coeff_B(p, StringToInteger(c,16),a);
+  
+  return flag,b,c;
+end function;
+
+
+/*Generation of a Safe curve of BitLength bits, compatible with NIST and a=-3*/
+function GenSafeCurve_NIST_am3(HexaSeed, BitLength, p)
+ 
+ safe:=false;
+ a:=-3;
+ /*the full text is appended with a '1' then the cpt iteration follows over 63 bits*/
+ iteration:=0;
+ c:=0;
+ NIST_seed:=HexaSeed;
+ 
+ while safe eq false do
+	b, c:= Param_NIST_FromSeed(HexaSeed, BitLength, p,a);
+	print "b=",b, IntegerToString(Integers()!b,16);
+	safe,q :=Is_OrderSafe(p,a,b);
+        if safe then
+	  if(Is_TwistRhoSafe(p,q) eq false) then
+            safe:=false;
+            print "Good SEA Curve but weak Rho Twist!";
+          end if;
+        end if;
+        iteration:=iteration+1;
+	print "iteration=",iteration;
+ end while;
+ 
+ return p,a,b,q, iteration,c;
+end function;
+
+
+/*Generation of a Safe curve of BitLength bits*/
+function GenSafeCurve_ReinforcedNIST(HexaSeed, BitLength, p)
+
+ safe:=false;
+ a:=-3;
+ /*the full text is appended with a '1' then the cpt iteration follows over 63 bits*/
+ iteration:=0;
+ c:=0;
+ NIST_seed:=HexaSeed;
+ loop:=0;
+ 
+ while safe eq false do
+        print "loop=",loop,"seed=",NIST_seed;
+        
+	flag_square, b, c:= Param_NIST_FromSeed(NIST_seed, BitLength, p,a);
+	if flag_square eq false then 
+	  safe:=false;
+	  print "a^3/c is not square !";
+	else	safe,q :=Is_OrderSafe(p,a,b);
+	end if;
+      
+        if safe then
+	  print "a=",a,"b=",b;	
+          print "q Prime:=",q;
+	  t:=p+1-q;
+
+	  /*assert embeding Degree*/
+	  if(Is_Factorizable(q-1) eq false) then
+		print "Good SEA Curve but cannot factorize q-1 (Transfers)";
+		safe:=false;
+	  else
+	    k:=Embedded_Degree(p,q);
+	    print "Weak Embedded Degree";
+	    
+/*	    if(k lt (q div 100)) then safe:=false;end if;*/
+	  end if;
+
+	  /*assert CM Discriminant*/
+	  if(Is_Factorizable(Abs(t^2-4*p)) eq false) then
+		print "Good SEA Curve but cannot factorize t2-4p (CMD)";
+		safe:=false;
+	  else
+	    CMD:=CMDiscriminant(p,q);
+	    print "Weak CMD";
+	/*    if(CMD lt (q div 100)) then safe:=false;end if;*/
+	  end if;
+
+
+	  /*assert twist security */
+	  if(Is_Factorizable(p+1+t) eq false) then
+		print "Good SEA Curve but cannot factorize p+1+t (twist)";
+		safe:=false;
+	  else
+	    twist:=Twist_RhoSecurity(p,q);
+	    print "Weak twist";
+	 /*   if(twist lt (q div 100)) then safe:=false;end if;*/
+	  end if;
+
+        end if;
+        loop:=loop+1;
+        NIST_seed:=IntegerToString(StringToInteger(NIST_seed,16)+loop,16);
+ end while;
+
+return p,a,b,q,iteration,c, CMD, k, twist;
+
+end function;
+
+/* choosing same seed as nist-> same curve*/
+/*p,a,b,q,iteration,c :=GenSafeCurve_NIST_am3(Seed_NISTP521,521,2^521-1);*/
+
+
+p,a,b,q,iteration,c, CMD, k, twist:= GenSafeCurve_ReinforcedNIST(Seed_NISTP256,256,2^256-2^224+2^192+2^96-1);
+
+print "\n Results\n",p,a,b,q,iteration,c, CMD, k, twist;
+\end{verbatim}
+
+\section{Example Curves}
+
+\subsection{CoinCurve192}
+
+\subsection{CoinCurve256}
+
+\subsection{CoinCurve521}
+
+
+% As affine coordinates are rarely used because of the high computational cost, this attack doesn't represent a real threat to cryptosystems. To do so the same work should be done, but the problems that we were not able 
+% to solve is to find a multiple of a point such that the result is normalized.
+% 
+% Even so, 
+
+\bibliographystyle{plain}
+\bibliography{biblch}
+
+\end{document}

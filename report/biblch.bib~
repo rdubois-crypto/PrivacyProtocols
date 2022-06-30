@@ -1,0 +1,317 @@
+@ARTICLE{Teske,
+  TITLE = {An elliptic curve trapdoor system},
+  AUTHOR = {E. Teske},
+  JOURNAL = {J. Cryptology},
+  VOLUME = {19},
+  YEAR = {2006},
+  PAGES = {115-133},
+  URL = {},
+  KEYWORDS = {backdoor},
+}
+
+@ARTICLE{Magueule,
+  TITLE = {Trapping ECC : Invalid Curve Bug Attacks},
+  AUTHOR = {R. Dubois},
+  JOURNAL = {eprint},
+  VOLUME = {554},
+  YEAR = {2016},
+  URL = {},
+  KEYWORDS = {backdoor},
+}
+
+@ARTICLE{BitCoin,
+  TITLE = {BitCoin: A peer-to-peer electronic cash system},
+  AUTHOR = {S. Nakamoto},
+  JOURNAL = {},
+  VOLUME = {},
+  YEAR = {2008},
+  URL = {https://bitcoin.org/bitcoin.pdf},
+  KEYWORDS = {cash},
+}
+
+@ARTICLE{MicrosoftGLV4,
+  TITLE = {Efficient and Secure Algorithms for GLV-Based Scalar Multiplication and their Implementation on GLV-GLS Curves},
+  AUTHOR = {A. Faz-Hernandez and Patrick Longa and Ana H. Sanchez},
+  JOURNAL = {Journal of Cryptographic Engineering},
+  SERIES = {LNCS},
+  VOLUME = {5},
+  YEAR = {2015},
+  PAGES = {31-52},
+  URL = {},
+  KEYWORDS = {elliptic curve, glv4},
+}
+
+@ARTICLE{Ecc25519,
+  TITLE = {Curve25519 : new Diffie-Hellman speed records},
+  AUTHOR = {D.J Bernstein},
+  JOURNAL = {Springer, Advances in Cryptology, PKC 2015},
+  SERIES = {LNCS},
+  VOLUME = {3958},
+  YEAR = {206},
+  PAGES = {207-228},
+  URL = {},
+  KEYWORDS = {elliptic curve},
+}
+
+
+@ARTICLE{BugAttacks,
+  TITLE = {Bug Attacks},
+  AUTHOR = {E. Biham and Y. Carmeli and A. Shamir},
+  JOURNAL = {Springer, Advances in Cryptology, CRYPTO 2008},
+  SERIES = {LNCS},
+  VOLUME = {5157},
+  YEAR = {2008},
+  PAGES = {221-240},
+  URL = {},
+  KEYWORDS = {bug},
+}
+
+@ARTICLE{InvalidCurve,
+  AUTHOR = {I. Biehl and B. Meyer and V. Müller},
+  TITLE = {Differential Fault Attacks on Elliptic Curve Cryptosystems},
+ JOURNAL = {Springer, Advances in Cryptology, CRYPTO 2000},
+SERIES = {LNCS},
+  
+   YEAR = {2000},
+  PAGES = {131-146},
+ }
+
+
+@ARTICLE{Surrep,
+TITLE = {Surreptitiously Weakening Cryptographic Systems},
+JOURNAL = {eprint 2015, report097. https://eprint.iacr.org/2015/097.},
+AUTHOR = {B. Schneier and M. Fredrikson and T. Kohno and T. Ristenpart}
+}
+
+
+@ARTICLE{Surrep,
+TITLE = {How to manipulate standards : a white paper for the black hat},
+JOURNAL = {eprint 2014, report571. https://eprint.iacr.org/2014/571.},
+AUTHOR = {D.J. Bernstein and T. Chou and C. Chuengsatianup and A. Hulsing and E. Lambooij and T. Lange and R. Niederhagen and C. van Vredendaal}
+}
+
+@ARTICLE{mailScott,
+TITLE = {Re: NIST announces set of Elliptic Curves},
+YEAR = {1999},
+AUTHOR={Mickael Scott},
+}
+
+@ARTICLE{MillionDollar,
+TITLE = {Trap Me If You Can - Million Dollar Curve},
+JOURNAL = {eprint 2015, report1249. https://eprint.iacr.org/2015/1249.},
+AUTHOR = {T. Baigni\`eres and C. D\'elerabl\'ee and M. Finiasz and L. Goubin and T. Lepoint and M. Rivain}
+}
+
+@ARTICLE{Blackhat,
+TITLE = {How to manipulate curve standards : a white paper for the black hat.},
+JOURNAL = {Cryptology eprint Archive. report0571.}, 
+URL={https://eprint.iacr.org/2014/0571.},
+AUTHOR = {D. Bernstein and  T. Chou and C. Chuengsatiansup and A. Hulsing and E. Lambooij and T. Lanje and R. Niederhagen and C. Vredendaal},
+YEAR={2014},
+}
+
+
+@ARTICLE{DECDRBG,
+TITLE = {Recommandation for Random Number Generation},
+JOURNAL = {Special Publication 800-90, 2012},
+SERIES = {National Institute for Standards and Technology. http://csrc.nist.gov/publications/PubsSPs.html#800-90A},
+URL = {http://csrc.nist.gov/publications/fips/archive/fips186-2/fips186-2.pdf},
+}
+
+
+@ARTICLE{Debian,
+TITLE = {Debian Security advisor : OpenSSL predictable random number generator.},
+YEAR = {2008},
+URL = {http://www.debian.org.security/2008/dsa-1571.},
+}
+
+@ARTICLE{NIST186-4,
+TITLE = {Digital Signature Standard},
+JOURNAL = {Federal Information Processing Standards Publication 186-4},
+YEAR={2013}
+SERIES = {National Institute for Standards and Technology. http://csrc.nist.gov/publications/fips/archive/fips186-2/fips186-2.pdf},
+URL = {http://csrc.nist.gov/publications/fips/archive/fips186-2/fips186-2.pdf},
+}
+
+
+@ARTICLE{ANSIX962,
+TITLE = {The Elliptic Curve Digital Signing Algorithm},
+JOURNAL = {American National Standard for Financial Services},
+SERIES = {Public Key Cryptography for the Financial Services Industry},
+}
+
+@ARTICLE{SafeCurves,
+
+TITLE = {SafeCurves: Choosing safe curves for elliptic-curve cryptography.},
+JOURNAL = {http://safecurves.cr.yp.to/index.html}
+
+}
+
+
+@ARTICLE{heartbleed1,
+AUTHOR = {Zakir Durumeric and  James Kasten and  David Adrian and  J Alex Halderman and  Michael Bailey and  Frank Li and  Nicholas Weaver and  Johanna Amann and  Jethro Beekman and  Mathias Payer and  and al.},
+TITLE = {The matter of Heartbleed.},
+JOURNAL = {In ACM Internet Measurement Conference–IMC, 2014.}
+
+}
+
+
+@ARTICLE{FaultTwist,
+  TITLE = {Fault attack on elliptic curve with Montgomery Ladder},
+  AUTHOR = {P.A. Fouque and Reynald Lercier and Denis R{\'e}al and Fr{\'e}d{\'e}ric Valette},
+  JOURNAL = {FDTC'08},
+  SERIES = {IEEE},
+  VOLUME = {},
+  YEAR = {2008},
+  PAGES = {92-98},
+  URL = {},
+  KEYWORDS = {fault, twist},
+}
+
+
+@ARTICLE{NYT,
+  TITLE = {Government Annouces Steps to Restore Confidence on Encryption Standards},
+  AUTHOR = {},
+  JOURNAL = {The New York Times},
+  VOLUME = {},
+  YEAR = {September 10, 2013},
+  URL = {bit.blogs.nytimes.com},
+}
+
+
+@ARTICLE{Bullrun,
+  TITLE = {Revealed : how US and UK spy agencies defeat internet privacy and security},
+  AUTHOR = {},
+  JOURNAL = {The Guardian},
+  VOLUME = {},
+  YEAR = {September 5, 2013},
+  URL = {www.theguardian.com/world/2103/sep/05/nsa-gchq-encryption-codes-security},
+}
+
+
+@ARTICLE{CORON,
+  TITLE = {Resistance against differential power analysis for Elliptic Curve Cryptosystems},
+  AUTHOR = {J.S. Coron},
+  SERIES = {LNCS},
+  JOURNAL = {Springer, CHES 1999},
+ 
+ PAGES = {292-302},
+  VOLUME = {},
+  YEAR = {1999},
+  URL = {},
+}
+
+@techreport{ISO15946,
+number={15946-2},
+publisher={ISO-IEC},
+TITLE={Information Technology - Security Techniques - Cryptographic Techniques Based On Elliptic Curves- Part 2 : Digital Signatures},
+ YEAR = {2002},
+}
+
+
+@inproceedings{AWACS2016,
+
+TITLE={AWACS 2016. A Workshop About Cryptographic Standards.},
+YEAR={2016},
+JOURNAL = {Colocated with Eurocrypt 2016},
+ URL = {www.cryptoexperts.com/awacs2016},
+}
+
+
+# fichier present : Crypto 1996, p. 89
+@inproceedings
+{
+  Crypto96-89,
+  title={{The Dark Side of "Black-Box" Cryptography, or: Should We Trust Capstone?}},
+  author={Adam Young and Moti Yung},
+  booktitle={Crypto 1996},
+  series={LNCS},
+  volume={1109},
+  year={1996},
+  pages={89--},
+  url={articles/crypto/crypto1996/LNCS1109_p0089.pdf},
+}
+
+
+# fichier present : Crypto 1997, p. 264
+@inproceedings
+{
+  Crypto97-264,
+  title={{The prevalence of kleptographic attacks on discrete-log based cryptosystems}},
+  author={Adam Young and Moti Yung},
+  booktitle={Crypto 1997},
+  series={LNCS},
+  volume={1294},
+  year={1997},
+  pages={264--276},
+  url={articles/crypto/crypto1997/LNCS1294_p0264.pdf},
+}
+
+
+
+@inproceedings
+{
+  Bellare,
+  title={{Security of symmetric encryption against mass surveillance.}},
+  author={M. Bellare and Z. Brakerski},
+  booktitle={Crypto 2014},
+  series={LNCS},
+  volume={8616},
+  year={2014},
+  pages={1--19},
+  
+}
+
+
+@inproceedings
+{
+  eurocrypt97-62,
+  title={Kleptography: Using Cryptography against Cryptography},
+  author={Adam Young and Moti Yung},
+  booktitle={Eurocrypt 1997},
+  series={LNCS},
+  volume={1233},
+  year={1997},
+  pages={62--},
+  url={articles/eurocrypt/eurocrypt1997/12330062.pdf},
+}
+
+# fichier present : FSE 1998, p. 122
+@inproceedings
+{
+  FSE98-122,
+  title={{Monkey: Black-Box Symmetric Ciphers Designed for MONopolizing KEYs}},
+  author={Adam Young and Moti Yung},
+  booktitle={FSE 1998},
+  series={LNCS},
+  volume={1372},
+  year={1998},
+  pages={122--},
+  url={articles/fse/fse1998/LNCS1372_p0122.pdf},
+}
+
+@inproceedings
+{
+  SEA,
+  title={{Counting Points on elliptic curves over finite fields}},
+  author={R. Schoof},
+  booktitle={J. Theorie des nombres Bordeaux 7},
+  series={Les dix huitiemes journees arithmetiques},
+  volume={},
+  year={1995},
+  pages={219-254},
+  url={articles/fse/fse1998/LNCS1372_p0122.pdf},
+}
+
+
+@inproceedings
+{
+  faultattack,
+  title={{On the importance of eliminating errors in Cryptographic Computations}},
+  author={D. Boneh and R.A. DeMillo and R.Lipton},
+  booktitle={Journal of Cryptology},
+  volume={14},
+  year={2001},
+  pages={101-120},
+}
+

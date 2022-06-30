@@ -66,11 +66,119 @@
     
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
- \begin{frame}{Pedersen Additive Homomorphic Commitment}
- totocs
+ \begin{frame}{Definitions}
+
+ \begin{center}
+ \includegraphics[width=1.4cm]{images/graal.jpg}
+ \end{center}
+ 
+ \begin{center}
+ \textcolor{yellow}{\fbox{Universal Functional Commitment}} 
+ \end{center}
+
+ \fbox{\parbox{\textwidth}{
+
+ \begin{itemize} 
+  \item $Setup(1^\kappa,t)$ : generates algebraic structure, optionally some $<P_K,S_K>$ elements.
+  \item $Commit(P_K,r)$ : outputs commitment $\cal{C}$ to element $r$ 
+  \item $Open(P_K, r)$ output element r
+  \item $Witness(S_K, r, i )$ output $<i, l(i,r), w_i>$
+  \item $VerifyOpen(P_K, {\cal{C}}, i, r, l(i,r))$
+  \item $VerifyEval(P_K, i, l(i,r), w_i)$
+ \end{itemize}
+ }}
  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+ \begin{frame}{Pedersen Additive Homomorphic Commitment}
+  
+ {
+  
+  $
+    \begin{array}{c c l}
+
+         
+\begin{minipage}{4cm}
+\begin{center} 
+ \includegraphics[width=1cm]{images/alice.jpg}
+ \end{center}
+\end{minipage}
+&&
+     
+\begin{minipage}{4cm}
+\begin{center}
+ \includegraphics[width=1cm]{images/bob.jpg}
+ \end{center}
+\end{minipage}
+\\
+\text{\textsf{Prover}} & & \hspace{+1.4cm}\text{\textsf{Verifier}} \\
+com(x,r) = xG+rH &  \xrightarrow{\hspace{1em}
+\begin{minipage}{1cm}
+\begin{center}
+ \includegraphics[width=1cm]{images/closedyellow.jpg} + \includegraphics[width=1cm]{images/closedblue.jpg}
+ \vspace{0.05cm}$\hspace{-0.5cm}com1, com2$
+ \end{center} 
+\end{minipage}  \hspace{1em}} & \\
+
+ & \xrightarrow{\hspace{1em}
+\begin{minipage}{2cm}
+\begin{center}
+ \includegraphics[width=1cm]{images/openedgreen.jpg}
+ \vspace{0.05cm}\newline {\tiny $(x_1+x_2,r_1+r_2)$}
+ \end{center} 
+\end{minipage}  \hspace{1em}} &  com(x_1, r_1)+com(x_2, r_2)\\
+&& {=}com(x_1+x_2,r_1+r_2)\\
+
+\end{array}$
+  }
+  
+ 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+
  
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+ \begin{frame}{Pedersen extension: Polynomial Commitment}
+
+ \begin{center}
+ \textcolor{yellow}{\fbox{Polynomial Commitment}} 
+ \end{center}
+
+ \fbox{\parbox{\textwidth}{
+
+ \begin{itemize} 
+  \item (Trusted) Setup : $(g, g^\alpha, g^{\alpha^2}, \ldots, g^{\alpha^d}), (h, h^\alpha, h^{\alpha^2}, \ldots, h^{\alpha^d}$) 
+  \item Com(p,r) : $(\prod_{j=0}^d (h^{\alpha^j})^{p_j}).(\prod_{j=0}^d (g^{\alpha^j})^{r_j})$, $p(x)=\sum p_jx^j, r(x)=\sum r_jx^j$
+  \item Open: output $(p,r)$
+  \item VerifyPoly : output ${\cal{C}}\stackrel{?}{=}g^{p(\alpha)}.h^{r(\alpha)}$
+  \item Witness : 
+  \item VerifyEval : 
+ \end{itemize}
+ }}
+ \end{frame}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+ \begin{frame}{Functional (Linear) Commitment}
+ 
+ \only<1>
+ {
+ Polynomial commitment is a special functional linear commitment limited to 
+ the evaluation of $P$ in $x$. The only possible witnesses of p are point. Functional commitment extends possible witnesses to any 
+  }
+  \only<2>
+  {
+   Open to $\sum m_i x_i$, only one evaluation per function F.
+  }
+  
+  
+ \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+ \
 \section{Pictures}
 \begin{frame}
 \begin{tikzpicture}

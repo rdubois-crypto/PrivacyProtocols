@@ -1,0 +1,132 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{WSL{\etalchar{+}}19}
+
+\bibitem[AM18]{MGG18}
+Tatiana Gayvoronskaya Christoph~Meinel Alexander~Mühle, Andreas~Grüner.
+\newblock A survey on essential components of a self-sovereign identity.
+\newblock https://arxiv.org/pdf/1807.06346.pdf, 2018.
+
+\bibitem[BBC{\etalchar{+}}18]{DBLP:conf/crypto/BaumBCPGL18}
+Carsten Baum, Jonathan Bootle, Andrea Cerulli, Rafa{\"{e}}l del Pino, Jens
+  Groth, and Vadim Lyubashevsky.
+\newblock Sub-linear lattice-based zero-knowledge arguments for arithmetic
+  circuits.
+\newblock In Hovav Shacham and Alexandra Boldyreva, editors, {\em Advances in
+  Cryptology - {CRYPTO} 2018 - 38th Annual International Cryptology Conference,
+  Santa Barbara, CA, USA, August 19-23, 2018, Proceedings, Part {II}}, volume
+  10992 of {\em Lecture Notes in Computer Science}, pages 669--699. Springer,
+  2018.
+
+\bibitem[CL02]{CL02}
+Jan Camenisch and Anna Lysyanskaya.
+\newblock Signature schemes and anonymous credentials from bilinear maps.
+\newblock In {\em CRYPTO - 2004 - The 22nd Annual International Cryptology
+  Conference, Santa Barbara, California, USA, August 18-22, Proceedings},
+  volume 2442 of {\em Lecture Notes in Computer Science}, pages 61--76.
+  Springer, 2002.
+
+\bibitem[CL04]{CL04}
+Jan Camenisch and Anna Lysyanskaya.
+\newblock Signature schemes and anonymous credentials from bilinear maps.
+\newblock In Matthew~K. Franklin, editor, {\em Advances in Cryptology -
+  {CRYPTO} 2004, 24th Annual International CryptologyConference, Santa Barbara,
+  California, USA, August 15-19, 2004, Proceedings}, volume 3152 of {\em
+  Lecture Notes in Computer Science}, pages 56--72. Springer, 2004.
+
+\bibitem[ECA21]{ElkhiyaouiCA21}
+Kaoutar Elkhiyaoui, Angelo~De Caro, and Elli Androulaki.
+\newblock Multi-issuer anonymous credentials without a root authority.
+\newblock {\em {IACR} Cryptol. ePrint Arch.}, page 1669, 2021.
+
+\bibitem[EG14]{EG14}
+Alex Escala and Jens Groth.
+\newblock Fine-tuning groth-sahai proofs.
+\newblock In Hugo Krawczyk, editor, {\em Public-Key Cryptography - {PKC} 2014 -
+  17th International Conference on Practice and Theory in Public-Key
+  Cryptography, Buenos Aires, Argentina, March 26-28, 2014. Proceedings},
+  volume 8383 of {\em Lecture Notes in Computer Science}, pages 630--649.
+  Springer, 2014.
+
+\bibitem[Gro15]{SigGroth}
+Jens Groth.
+\newblock Efficient fully structure-preserving signatures for large messages.
+\newblock In Tetsu Iwata and Jung~Hee Cheon, editors, {\em Advances in
+  Cryptology - {ASIACRYPT} 2015 - 21st International Conference on the Theory
+  and Application of Cryptology and Information Security, Auckland, New
+  Zealand, November 29 - December 3, 2015, Proceedings, Part {I}}, volume 9452
+  of {\em Lecture Notes in Computer Science}, pages 239--259. Springer, 2015.
+
+\bibitem[Gro16]{Groth16}
+Jens Groth.
+\newblock On the size of pairing-based non-interactive arguments.
+\newblock {\em {IACR} Cryptol. ePrint Arch.}, page 260, 2016.
+
+\bibitem[KZG10]{Kate10}
+Aniket Kate, Gregory~M. Zaverucha, and Ian Goldberg.
+\newblock Constant-size commitments to polynomials and their applications.
+\newblock In Masayuki Abe, editor, {\em Advances in Cryptology - {ASIACRYPT}
+  2010 - 16th International Conference on the Theory and Application of
+  Cryptology and Information Security, Singapore, December 5-9, 2010.
+  Proceedings}, volume 6477 of {\em Lecture Notes in Computer Science}, pages
+  177--194. Springer, 2010.
+
+\bibitem[LCKO21]{LCKO21}
+Jeonghyuk Lee, Jaekyung Choi, Jihye Kim, and Hyunok Oh.
+\newblock Privacy-preserving identity management system.
+\newblock {\em {IACR} Cryptol. ePrint Arch.}, page 1015, 2021.
+
+\bibitem[LRY16]{Libert16}
+Beno{\^{\i}}t Libert, Somindu~C. Ramanna, and Moti Yung.
+\newblock Functional commitment schemes: From polynomial commitments to
+  pairing-based accumulators from simple assumptions.
+\newblock In Ioannis Chatzigiannakis, Michael Mitzenmacher, Yuval Rabani, and
+  Davide Sangiorgi, editors, {\em 43rd International Colloquium on Automata,
+  Languages, and Programming, {ICALP} 2016, July 11-15, 2016, Rome, Italy},
+  volume~55 of {\em LIPIcs}, pages 30:1--30:14. Schloss Dagstuhl -
+  Leibniz-Zentrum f{\"{u}}r Informatik, 2016.
+
+\bibitem[PB10]{PengB10}
+Kun Peng and Feng Bao.
+\newblock An efficient range proof scheme.
+\newblock In Ahmed~K. Elmagarmid and Divyakant Agrawal, editors, {\em
+  Proceedings of the 2010 {IEEE} Second International Conference on Social
+  Computing, SocialCom / {IEEE} International Conference on Privacy, Security,
+  Risk and Trust, {PASSAT} 2010, Minneapolis, Minnesota, USA, August 20-22,
+  2010}, pages 826--833. {IEEE} Computer Society, 2010.
+
+\bibitem[Ped91]{Pedersen91}
+Torben~P. Pedersen.
+\newblock Non-interactive and information-theoretic secure verifiable secret
+  sharing.
+\newblock In Joan Feigenbaum, editor, {\em Advances in Cryptology - {CRYPTO}
+  '91, 11th Annual International Cryptology Conference, Santa Barbara,
+  California, USA, August 11-15, 1991, Proceedings}, volume 576 of {\em Lecture
+  Notes in Computer Science}, pages 129--140. Springer, 1991.
+
+\bibitem[Pro21]{Prom}
+Project prometheus privacy preserving post-quantum systems from advanced
+  cryptographic mechanisms using lattices.
+\newblock 2021.
+
+\bibitem[Sha79]{Shamir79}
+Adi Shamir.
+\newblock How to share a secret.
+\newblock {\em Commun. {ACM}}, 22(11):612--613, 1979.
+
+\bibitem[Sov21]{Sovrin}
+Sovrin.
+\newblock How sovrin works.
+\newblock https://eprint.iacr.org/2021/1459.pdf, 2021.
+
+\bibitem[W3C12]{W3CDId21}
+{Decentralized Identifiers (DIDs) v1.0,Core architecture, data model, and
+  representations.}
+\newblock https://www.w3.org/TR/did-core/, 2012.
+
+\bibitem[WSL{\etalchar{+}}19]{PrimforW3}
+Licheng Wang, Xiaoying Shen, Jing Lib, Jun Shao, and Yixian Yanga.
+\newblock Cryptographic primitives in blockchains.
+\newblock volume 127, pages 43--58. Journal of Network and Computer
+  Applications, 2019.
+
+\end{thebibliography}

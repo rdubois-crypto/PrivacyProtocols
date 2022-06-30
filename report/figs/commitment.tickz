@@ -1,0 +1,81 @@
+
+\begin{center}
+\begin{tikzpicture}[
+        scale=0.75,
+        start chain=1 going below, 
+        start chain=2 going right,
+        node distance=1mm,
+        desc/.style={
+            scale=0.75,
+            on chain=2,
+            rectangle,
+            rounded corners,
+            draw=black, 
+            very thick,
+            text centered,
+            text width=8cm,
+            minimum height=12mm,
+            fill=mycolor!30
+            },
+        1/.style={
+            fill=mycolor!10
+        },
+        2/.style={
+            fill=mycolor!30
+        },
+        3/.style={
+            fill=mycolor!50
+        },
+        4/.style={
+            fill=mycolor!70
+        },
+        5/.style={
+            fill=mycolor!70
+        },
+        level/.style={
+            scale=0.75,
+            on chain=1,
+            minimum height=12mm,
+            text width=2cm,
+            text centered
+        },
+        every node/.style={font=\sffamily}
+    ]
+
+    % Levels
+    \node [level] (Level 5) {Layer 5};
+    \node [level] (Level 4) {Layer 4};
+    \node [level] (Level 3) {Layer 3};
+    \node [level] (Level 2) {Layer 2};
+    \node [level] (Level 1) {Layer 1};
+
+    % Descriptions
+    \chainin (Level 5); % Start right of Level 5
+    \node [desc, 5] (5) {Universal Commitments (Ideal)};
+%     \node [ scale=0.75,
+%             rectangle,
+%             rounded corners,
+%             draw=black, 
+%             very thick,
+%             text centered,
+%             text width=8cm,
+%             minimum height=12mm,
+%             fill=mycolor!30,
+%            text width=3.5cm, xshift=2.25cm,above left= of 5] {TLS};
+%     \node [scale=0.75,
+%             rectangle,
+%             rounded corners,
+%             draw=black, 
+%             very thick,
+%             text centered,
+%             text width=8cm,
+%             minimum height=12mm,
+%             fill=mycolor!30,text width=3.5cm, xshift=-4.5cm,above right= of 5]  {TLS in HTTPS};
+
+    \node [desc, 4, continue chain=going below] (4) {Linear Functional Commitments \cite{Libert16}};
+    \node [desc,3] (3) {Polynomial Commitments\cite{Kate10}};
+    \node [desc,2] (2) {Homorphic Additive Commitments \cite{Pedersen91} };
+    \node [desc,1] (1) {Single Point Commitments};
+    \end{tikzpicture}
+  \end{center}
+  

@@ -13,8 +13,8 @@
 \defcounter {refsection}{0}\relax 
 \beamer@sectionintoc {2}{Privacy-Preserving Cryptographic Toolbox}{13}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {2}{1}{Commitment}{14}{0}{2}
+\beamer@subsectionintoc {2}{1}{Commitments}{14}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {3}{Pictures}{16}{0}{3}
+\beamer@sectionintoc {3}{Pictures}{17}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {4}{boxes and columns}{18}{0}{4}
+\beamer@sectionintoc {4}{boxes and columns}{19}{0}{4}
