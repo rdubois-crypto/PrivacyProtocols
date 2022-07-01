@@ -18,7 +18,7 @@
  
 \addtolength{\hoffset}{-1cm} 
 \addtolength{\textwidth}{2cm} 
-\addtolength{\voffset}{-2cm} 
+\addtolength{\voffset}{-2cm}  
 \addtolength{\textheight}{4cm} 
 
 
@@ -346,8 +346,8 @@ Groth’s constant size NIZK argument is based on constructing a set of polynomi
 
 \subsubsection{LegoSnark: gadget for Commitments}
 
-\cite{LegoSnark} provides . It is interesting to note that an implementation is also provided in github. (TODO: source).
-
+\cite{LegoSnark} provides . It is interesting to note that an implementation is also provided in github. (TODO: source available ZKP primitives implementations).
+ 
 \begin{table}
 \begin{center}
  \begin{tabular}{ |c| c|c|c|c|}
@@ -429,21 +429,22 @@ In this section we provide a list of Ledgers services which could benefit to an 
 
 \subsection{Supporting Bitcoin evolutions: Musig2}
 
+As the ``king of all blockchains'', Ledger should be prepared to its evolution and dispose of ``on the shelf'' implementation when the multisig BIP is deployed. 
 
 
 \subsection{DIds}
 
  The latest DIds described table \ref{tab-dids} use advanced ZKP mechanisms (compared to the nearly 20 years old \cite{CL02}). The IBM proposal described in \cite{ElkhiyaouiCA21} appears very promising in term of features. As opposed to blockchain mechanisms where the complex parts of the protocol (namely the BFT and POW) are left to the backbone (miners and nodes), in SSI an important part of the protocol is computed at the endpoint (the user). What appears to be a challenged will be to preserve the privacy of the user, using techniques as 'clear signing' (use the secure display of a device to avoid luring the user to sign \href{https://www.ledger.com/academy/cryptos-greatest-weakness-blind-signing-explained}{diverted messages}), without ``overloading'' them with too much information.  
 Two objectives may be distinguished for {\bf \textregistered Ledger} :
-\begin{itemize}
- \item be ready, having the necessary tools ``on the shelf'' to be an actor of SSI,
- \item be part of the specification of the  SSI Architecture of the future.
-\end{itemize}
+\begin{enumerate}
+ \item {\bf Technologic readiness} : having the necessary tools ``on the shelf'' to be an actor of SSI.
+ \item {\bf Domain contribution} : be part of the specification of the  SSI Architecture of the future.
+\end{enumerate}
 For the moment this note only address the first objective in the perspective of a Ledger integration in advanced frameworks.
  
 \subsubsection{DIds Nano and Host Side}
 
-As for the previous mechanism, the first building block to provide is a bolos sdk3 providing pairings computation to build ZKP protocols on top of it. The protocol choice will then depends on the DIds implementation retained. Clearly advanced ZKP features in the current incredibly innovative blokchain context seem a good bet. As such providing higher building block such as Groth signatures, Groth-Sahai proofs and LegoSnark Tools would prove the technologic advance of Ledger over its competitors. There is an architecture investigation to conduct about the host/Nano repartition of the tasks. What appears as a certainty is that the signature mechanisms have to be computed by the Secure Element. To be prepared, we recommand to put in a roadmap with a TBD prioritization the efficient signatures mechanisms described in \ref{section-sig}.
+As for the previous mechanism, the first building block to provide is a bolos sdk3 providing pairings computation to build ZKP protocols on top of it. The protocol choice will then depends on the DIds implementation retained. Clearly advanced ZKP features in the current incredibly innovative blokchain context seem a good bet. As such providing higher building block such as Groth signatures, Groth-Sahai proofs and LegoSnark Tools would prove the technologic advance of Ledger over its competitors. There is an architecture investigation to conduct about the host/Nano repartition of the tasks. What appears as a certainty is that the signature mechanisms have to be computed by the Secure Element. To be prepared, we recommand to put in a roadmap with a TBD prioritization the efficient signatures mechanisms described in \ref{section-sig}. Note that all previous initiatives would contribute to this bigger one.
 
 
 
@@ -451,10 +452,12 @@ As for the previous mechanism, the first building block to provide is a bolos sd
 
 The Back End will have to deal the following problematics:
 \begin{itemize}
- \item Credential issuance specification and capabilities,
+ \item credential issuance/revocation specification and capabilities (backbone),
  \item KYC (Know your clien authentication systems),
- \item 
+ \item reputation system and ``Soulbond'' concepts implementation.
 \end{itemize}
+For back end,  the separation between technologic readiness and domain contribution is less clear than for endpoint. Obviously the Back end should implement the counterpart of each primitive implemented in Nano (ZKP signature verification, ZKP verification). KYC is out of scope of cryptography and is addressed by organizational measures and AI problematics, thus out of scope of this note. Concerning the last point, 
+while Nano can focus on low-level primitives, the back end will have to imagine the use cases. Some recent concepts like ``Soulbond'' \cite{Soul} are still to be precised in their implementation.  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -556,5 +559,38 @@ Note that if element of $G_2$ are public elements, it is possible to avoid the I
 \caption{Cryptographic schemes and underlying Assumptions and Tools}
 \end{table}
 
+\section{Available ZKP primitives implementations}
+Libsec256k1 is an absolute reference for its concisness and efficiency. Arkwork is widely used and should be considered as a target for ledger rust bindings. blst is clear and concise C pairing based library, retained as target for the hackaton. Other libraries are given for completeness. 
+% 
+% \begin{table}[h!]
+ \begin{center}
+ \begin{tabular}{|c|c|c|c|}
+  \hline
+  Library & Language &Feature & Link \\
+  \hline
+  Libsec256k1-zkp & C &Musig2, RangeProof & \href{https://github.com/ElementsProject/secp256k1-zkp/tree/master/src/modules}{ElementsProject git}\\
+  \hline
+  blst & C & BLS12-381 pairings & \\
+  \hline
+  Arkwork & rust & & \\
+  \hline
+  Snarkjs & js, &Groth16, PLONK& \href{https://github.com/iden3/snarkjs}{iden3}\\
+  java library for zkSNARKs &Web Assembly&&\\
+  \hline
+  LegoSnark & C++ & \cite{LegoSnark} & \href{https://github.com/imdea-software/legosnark}{imdea}\\
+  \hline 
+  libsnark& C++ & zkSNARK & \href{https://github.com/scipr-lab/libsnark}{scipr-lab}\\
+  \hline
+Legogroth16& rust & Groth16& \href{https://github.com/kobigurk/legogro16}{kobigurk}\\
+\hline
+Z0Krates& & Zksnark over ethereum & \href{https://zokrates.github.io/introduction.html}{zokrates}\\ 
+\hline
+libStark & C++& Zk-Stark & \href{https://github.com/elibensasson/libSTARK}{libSTARK}\\
+
+\hline
+ \end{tabular} 
+ \end{center}
+% \caption{Available ZKP primitives implementations}
+% \end{table}
 
 \end{document}

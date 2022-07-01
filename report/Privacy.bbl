@@ -17,6 +17,15 @@ Carsten Baum, Jonathan Bootle, Andrea Cerulli, Rafa{\"{e}}l del Pino, Jens
   10992 of {\em Lecture Notes in Computer Science}, pages 669--699. Springer,
   2018.
 
+\bibitem[CDD17]{CamenischDD17}
+Jan Camenisch, Manu Drijvers, and Maria Dubovitskaya.
+\newblock Practical uc-secure delegatable credentials with attributes and their
+  application to blockchain.
+\newblock In Bhavani Thuraisingham, David Evans, Tal Malkin, and Dongyan Xu,
+  editors, {\em Proceedings of the 2017 {ACM} {SIGSAC} Conference on Computer
+  and Communications Security, {CCS} 2017, Dallas, TX, USA, October 30 -
+  November 03, 2017}, pages 683--699. {ACM}, 2017.
+
 \bibitem[CL02]{CL02}
 Jan Camenisch and Anna Lysyanskaya.
 \newblock Signature schemes and anonymous credentials from bilinear maps.
@@ -85,6 +94,14 @@ Beno{\^{\i}}t Libert, Somindu~C. Ramanna, and Moti Yung.
   volume~55 of {\em LIPIcs}, pages 30:1--30:14. Schloss Dagstuhl -
   Leibniz-Zentrum f{\"{u}}r Informatik, 2016.
 
+\bibitem[NRS21]{Musig2}
+Jonas Nick, Tim Ruffing, and Yannick Seurin.
+\newblock Musig2: Simple two-round schnorr multi-signatures.
+\newblock In Tal Malkin and Chris Peikert, editors, {\em Advances in Cryptology
+  - {CRYPTO} 2021 - 41st Annual International Cryptology Conference, {CRYPTO}
+  2021, Virtual Event, August 16-20, 2021, Proceedings, Part {I}}, volume 12825
+  of {\em Lecture Notes in Computer Science}, pages 189--221. Springer, 2021.
+
 \bibitem[PB10]{PengB10}
 Kun Peng and Feng Bao.
 \newblock An efficient range proof scheme.
@@ -108,6 +125,24 @@ Project prometheus privacy preserving post-quantum systems from advanced
   cryptographic mechanisms using lattices.
 \newblock 2021.
 
+\bibitem[SALY17]{RingCT}
+Shifeng Sun, Man~Ho Au, Joseph~K. Liu, and Tsz~Hon Yuen.
+\newblock Ringct 2.0: {A} compact accumulator-based (linkable ring signature)
+  protocol for blockchain cryptocurrency monero.
+\newblock In Simon~N. Foley, Dieter Gollmann, and Einar Snekkenes, editors,
+  {\em Computer Security - {ESORICS} 2017 - 22nd European Symposium on Research
+  in Computer Security, Oslo, Norway, September 11-15, 2017, Proceedings, Part
+  {II}}, volume 10493 of {\em Lecture Notes in Computer Science}, pages
+  456--474. Springer, 2017.
+
+\bibitem[Sch89]{Schnorr89}
+Claus{-}Peter Schnorr.
+\newblock Efficient identification and signatures for smart cards.
+\newblock In Gilles Brassard, editor, {\em Advances in Cryptology - {CRYPTO}
+  '89, 9th Annual International Cryptology Conference, Santa Barbara,
+  California, USA, August 20-24, 1989, Proceedings}, volume 435 of {\em Lecture
+  Notes in Computer Science}, pages 239--252. Springer, 1989.
+
 \bibitem[Sha79]{Shamir79}
 Adi Shamir.
 \newblock How to share a secret.
@@ -121,7 +156,11 @@ Sovrin.
 \bibitem[W3C12]{W3CDId21}
 {Decentralized Identifiers (DIDs) v1.0,Core architecture, data model, and
   representations.}
-\newblock https://www.w3.org/TR/did-core/, 2012.
+\newblock \url{https://www.w3.org/TR/did-core/}, 2012.
+
+\bibitem[WNR]{BIP340}
+P.~Wuille, J.~Nick, and T.~Ruffing.
+\newblock Schnorr signatures for secp256k1. bitcoin improvement proposal 340.
 
 \bibitem[WSL{\etalchar{+}}19]{PrimforW3}
 Licheng Wang, Xiaoying Shen, Jing Lib, Jun Shao, and Yixian Yanga.
