@@ -5,7 +5,7 @@
 %\usepackage[latin1]{inputenc} % si WINDOWS
 %\usepackage[utf8]{inputenc} % si LINUX
 %\usepackage[T1]{fontenc}
-
+\usepackage{url}
 \usepackage{graphicx}
 %\usepackage[xetex]{graphicx}
 \usepackage{tikz} 
@@ -15,8 +15,8 @@
 
 \usepackage{slashbox}
 \usepackage{multirow}
-
-\addtolength{\hoffset}{-1cm}
+ 
+\addtolength{\hoffset}{-1cm} 
 \addtolength{\textwidth}{2cm} 
 \addtolength{\voffset}{-2cm} 
 \addtolength{\textheight}{4cm} 
@@ -259,7 +259,7 @@ The first well known way to commit is to commit to the hash of a value. In this 
  \caption{Instanciation of known commitment schemes in the Universal Commitment framework (TBD)}
 \end{table}
 
-\subsubsection{Polynomial Commitment}
+\subsubsection{Polynomial Commitments}
  
  Polynomial commitments are used to provide exact range proof. The idea is to commit a Polynomial that is evaluated to $0$ in all elements of the interval. It is done by commiting a polynomial P=($\prod x_i-a_i$)Q where $Q$ is used for security.
   
@@ -280,6 +280,8 @@ The first well known way to commit is to commit to the hash of a value. In this 
 \caption{Polynomial Commitment \cite{Kate10}}
  \end{figure}
  
+\subsubsection{Functional Linear Commitments}
+
  \subsubsection{Applications}
  
  
@@ -310,15 +312,41 @@ The first well known way to commit is to commit to the hash of a value. In this 
 \end{table}
  
 \subsection{Efficient Signatures}
+\label{section-sig}
+
+\subsubsection{Schnorr Signature}
+Schnorr signatures \cite{Schnorr89} are almost as old as ECDSA, which was selected mainly because Schnorr used to be covered by patents (now expired), limiting its adoption. Due to some different favorable algebraic properties, it is feasible to convey additive properties into the computation. Doing so, combining SS \cite{Shamir79} with Schnorr provide threshold signature, combining with Groth signatures, it enable Sibling Signatures leading to AC \cite{CamenischDD17}. It leads to Multisignature by enabling key aggregation (\cite{Musig2}). The diversity of such ZK-friendly constructions is very high. This richness is such that the Bitcoin community (prudent among blockchain ones) is waiting for its adoption through BIP340 \cite{BIP340}. 
+ 
 
 \subsubsection{Groth Signature}
 Groth signature \cite{SigGroth} is a structure-preserving signature that sign vectors of group elements.
 
+\subsubsection{Multi, Aggregate and Threshold signatures}
+
+ In a multi-signature scheme \cite{Musig2}, public keys of a group of users are aggregated such that verifiers are given a signature and an aggregate public key and do not  learn whether the signature was created by a single signer or by a group of signers. This leads to possible uses that may benefit to the privacy of users. 
+
+ 
+\subsubsection{Ring Signatures}
+
+A ring signature is a scheme allowing to sign messages on behalf of a group (including thyself), without revealing its identity. 
+
+\subsubsection{Linkable Signatures}
+Linkability is an additional property to ring signature allowing to detect if two messages have been issued by the same entity, learning nothing more about its identity. 
+
+\subsubsection{Ring CT}
+
+
 \subsection{Zero knowledge Proofs}
+A zero-knowledge protocol or proof (ZKP) is a method by which one party (the prover) can prove to another party (the verifier) that a given statement is true while no information is learned except the fact that the statement is indeed true. As for commitment this property covers a wild area, from proving knowledge of a Password, a private key (a signature is a ZKP), to general purpose circuit. The complexity of the proof depends on the richness of the proofs that can be done with the protocol. 
+
+\subsubsection{Groth NIZK argument}
+Groth’s constant size NIZK argument is based on constructing a set of polynomial equations and using pairings to efficiently verify these equations.
+
+\subsubsection{Commit-and-prove ZKsnarks}
 
 \subsubsection{LegoSnark: gadget for Commitments}
 
-
+\cite{LegoSnark} provides . It is interesting to note that an implementation is also provided in github. (TODO: source).
 
 \begin{table}
 \begin{center}
@@ -346,7 +374,7 @@ Groth signature \cite{SigGroth} is a structure-preserving signature that sign ve
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Anonymous Credentials/DIds}
 
-This section describes some existing frameworks with pointers to the underlying cryptographic mechanisms. The last subsection highlight a construction providing a decentralized approach.
+This section describes some existing DIds frameworks with pointers to the underlying cryptographic mechanisms. The last subsection focus on \cite{ElkhiyaouiCA21 } which proposes a construction providing a decentralized approach for multi-issuers DIds.
 
 \subsection{Existing SSI}
 
@@ -371,6 +399,7 @@ Issuer Anonymity Optimization& \checkmark & $\times$ &$\times$&$\times$&$\times$
 
 \end{tabular}
 \caption{Comparizon of existing DIds (completed from\cite{LCKO21})}
+\label{tab-dids}
 \end{center}
 \end{table}
 
@@ -389,53 +418,82 @@ Issuer Anonymity Optimization& \checkmark & $\times$ &$\times$&$\times$&$\times$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Applications for Ledgers}
 
-In this section we provide a list of Ledgers services which could benefit to an improvment of the privacy using some element of the ``toolbox''.
+In this section we provide a list of Ledgers services which could benefit to an improvment of the privacy using some element of the ``toolbox'' (sorry Data Team).
 
-\subsubsection{Endorsement.} During Ledger endorsement of a Nano device, the public key is send to the BackEnd, then a ``challenge-response'' between Ledger services and Nano is performed. Using a Zero-knowledge proof instead of sending the public key would reduce the information that Ledger could store about links between a device and a host (smartphone or labtop). This could be achieved using a Group Signatures as described in this document instead. The backend only learns that it is indeed a Nano that is connecting to the Ledger Live application, without further information.
-
-
-\subsubsection{Protect.} In Protect, the seed element (input to the BIP32 protocol, the core of all user security) is stored via a threshold mechanism which is a VSS (verifiable Secret Sharing scheme) which was designed by Pedersen. While 
-
-\subsubsection{Device ID: Airdrop} One of the application of the Device Identifier (which is a very risky initiative in term of Privacy) is to perform Airdrops to the owner of nanos. 
-
-\subsubsection{DIds resolution}
+\subsection{Endorsement.} During Ledger \href{https://github.com/LedgerHQ/blue-loader-python/blob/master/ledgerblue/checkGenuine.py}{genuine check} of a Nano device on the Ledger Live, the public key is send to the BackEnd, then a ``challenge-response'' between Ledger services and Nano is performed. Using a Zero-knowledge proof instead of sending the public key would reduce the information that Ledger could store about links between a device and a host (smartphone or labtop). This could be achieved using a Group Signatures as described in this document instead. The backend only learns that it is indeed a Nano that is connecting to the Ledger Live application, without learning the device public key.
 
 
-\begin{table}
- \begin{center}
-  \begin{tabular}{|c|c|c|}
-   \hline
-   Issue Name & Description & \# (Link) \\
-   \hline
-   Computational Delegation of pairings & Hybrid Architecture for efficient Nano PBC&\\
-   \hline
-   Strongly verifiable secret sharing& eVSS for Protect &\\
-   \hline
-   Musig2 &  Schnorr Multisignature& \\
-   \hline
-   Nano with Group Signature endorsement &  Group signature for Ledger endorsement& \href{https://github.com/LedgerHQ/innovation/issues/31}{31}\\
-   \hline
-   Linkable signature for Airdrop & Linkable signature for Anonymous Airdrop& 30 \\
-   \hline
-   
-  \end{tabular}
+\subsection{Protect.} In \href{https://ledgerhq.atlassian.net/wiki/spaces/TrustServices/pages/3548971279/Protect+Arch+Crypto+Protocol+Specification}{Protect}, the seed element (input to the BIP32 protocol, the core of all user security) is stored via a threshold mechanism which is a VSS (verifiable Secret Sharing scheme) described in \cite{Pedersen91}. While the scheme is secure under the assumption that the gathering of shares is, it could be a concern if not. The scheme is as secure as the strongest back up provider access control. In the Pedersen VSS, if an attacker success in obtaining one of the share, which is protected by KYC in Protect, the share is known, unless performing a resharing. In a ZKP-VSS scheme \cite{Kate10}, the attacker learns nothing if the reconstruction fails.
 
- \end{center}
-\caption{Innovation issues related to Privacy Preserving}
-\end{table}
+\subsection{Device ID: Airdrop} One of the application of the \href{https://ledgerhq.atlassian.net/wiki/spaces/TA/pages/3557261398/ARCH+DRAFT+Device+identification}{Device Identifier} (which is a very risky initiative in term of Privacy) is to perform Airdrops to the owner of nanos. As for the genuine check, the sender learns the device public key. Using a linkable signature \cite{RingCT} would provide the desired service, without having the sender learning nothing except the eligibility to the service.
+
+\subsection{Supporting Bitcoin evolutions: Musig2}
+
+
+
+\subsection{DIds}
+
+ The latest DIds described table \ref{tab-dids} use advanced ZKP mechanisms (compared to the nearly 20 years old \cite{CL02}). The IBM proposal described in \cite{ElkhiyaouiCA21} appears very promising in term of features. As opposed to blockchain mechanisms where the complex parts of the protocol (namely the BFT and POW) are left to the backbone (miners and nodes), in SSI an important part of the protocol is computed at the endpoint (the user). What appears to be a challenged will be to preserve the privacy of the user, using techniques as 'clear signing' (use the secure display of a device to avoid luring the user to sign \href{https://www.ledger.com/academy/cryptos-greatest-weakness-blind-signing-explained}{diverted messages}), without ``overloading'' them with too much information.  
+Two objectives may be distinguished for {\bf \textregistered Ledger} :
+\begin{itemize}
+ \item be ready, having the necessary tools ``on the shelf'' to be an actor of SSI,
+ \item be part of the specification of the  SSI Architecture of the future.
+\end{itemize}
+For the moment this note only address the first objective in the perspective of a Ledger integration in advanced frameworks.
+ 
+\subsubsection{DIds Nano and Host Side}
+
+As for the previous mechanism, the first building block to provide is a bolos sdk3 providing pairings computation to build ZKP protocols on top of it. The protocol choice will then depends on the DIds implementation retained. Clearly advanced ZKP features in the current incredibly innovative blokchain context seem a good bet. As such providing higher building block such as Groth signatures, Groth-Sahai proofs and LegoSnark Tools would prove the technologic advance of Ledger over its competitors. There is an architecture investigation to conduct about the host/Nano repartition of the tasks. What appears as a certainty is that the signature mechanisms have to be computed by the Secure Element. To be prepared, we recommand to put in a roadmap with a TBD prioritization the efficient signatures mechanisms described in \ref{section-sig}.
+
+
+
+\subsubsection{DIds Back End Side}
+
+The Back End will have to deal the following problematics:
+\begin{itemize}
+ \item Credential issuance specification and capabilities,
+ \item KYC (Know your clien authentication systems),
+ \item 
+\end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion} 
 
-In this note we provided an overview of some privacy preserving tools and principles. We also provide a non exhaustive list of applications that could immediately benefit from the described mechanisms. Most of those building blocks rely on the use of computation of pairing over elliptic curves. 
+This notes provides an overview of some privacy preserving tools and principles. We also provide a non exhaustive list of applications that could immediately benefit from the described mechanisms to {\bf \textregistered Ledger}. Most of those building blocks rely on the use of computation of pairings over elliptic curves. Hence it appears has a prioritary block to implement on Nano in the context of SSI and Web3.0. 
 
+  
+\begin{table}
+ \begin{center} 
+  \begin{tabular}{|c|c|c|}
+   \hline
+   Issue Name & Description & \# (Link) \\
+   \hline
+   Computational Delegation of pairings & Hybrid Architecture for efficient Nano PBC& \href{https://github.com/LedgerHQ/innovation/issues/48}{48}\\
+   \hline
+   Strongly verifiable secret sharing& eVSS for Protect & \href{https://github.com/LedgerHQ/innovation/issues/41}{41}\\
+   \hline
+   Musig2 &  Schnorr Multisignature& \href{https://github.com/LedgerHQ/innovation/issues/40}{40}\\
+   \hline
+   Nano with Ring Signature endorsement &  Ring signature for Ledger endorsement& \href{https://github.com/LedgerHQ/innovation/issues/31}{31}\\
+   \hline
+   Linkable signature for Airdrop & Linkable signature for Anonymous Airdrop& 30 \\
+   \hline
+   SDK3 for Web3 &Hack the Web3.0 proposal & \\
+   \hline
+  \end{tabular}
 
+ \end{center} 
+\caption{Innovation Team issues related to Privacy-Preserving mechanisms}
+\end{table}
 
 
 \bibliographystyle{alpha}
-\bibliography{biblch}
+\bibliography{bibprivacy}
 
 \appendix
+\newpage
+{\noindent\huge{\bf Annexes}}
 
 \section{Issues and Roadmap}
 
@@ -449,6 +507,21 @@ In this note we provided an overview of some privacy preserving tools and princi
 %Barreto–Lynn–Scott BLS12, cyclotomic r(x)	12	3	0x8508c00000000001=263+258+256+251+247+246+1	Zexe, eprint 2018/962, Table 16	377	253	p2, 754	4521
 %Barreto–Lynn–Scott BLS12, cyclotomic r(x)	12	3	-0xd201000000010000=-263-262-260-257-248-216	ZCash	381	255	p2, 762	4569
 
+\begin{table}[h!]
+\begin{center}
+ 
+\begin{tabular}{|c| c| c|}
+\hline
+ Scheme & Curves & Ref.\\
+ \hline
+ Zexe   & BLS12-377 & eprint 2018/962\\
+ Penumbra (Cosmos) & &  \\
+ \hline
+ Zcash & BLS12-381 & Zcash white paper\\
+ \hline
+\end{tabular}
+\end{center}
+\end{table}
 
 \subsection{Hybrid Architecture for Nano}
 As a constrained device, the Implementation of pairings only on the device may 
@@ -467,5 +540,21 @@ Note that if element of $G_2$ are public elements, it is possible to avoid the I
 \section{Linkable Signature for Anonymous Airdrop}
 
 \section{Strongly Verifiable Secret Sharing for Seed Protection}
+
+\section{Schemes and Assumptions}
+
+\begin{table}
+\begin{center}
+ 
+ \begin{tabular}{|c|c|c|c|}
+ \hline
+ Scheme & Reference & Assumptions & Pairings \\
+   &&& (Y/N)\\ 
+ \hline
+ \end{tabular}
+\end{center}
+\caption{Cryptographic schemes and underlying Assumptions and Tools}
+\end{table}
+
 
 \end{document}
