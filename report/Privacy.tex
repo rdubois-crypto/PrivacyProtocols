@@ -67,6 +67,10 @@
 % \usetikzlibrary{positioning,shadows,backgrounds}
 % \usetikzlibrary{trees}
 
+\usepackage[resetlabels,labeled]{multibib}
+
+\newcites{Link}{Efficient Signatures}
+
 \newcommand{\gray}[1]{\textcolor{gray}{#1}}
 \newcommand{\lightgray}[1]{\textcolor{lightgray}{#1}}
 
@@ -114,11 +118,12 @@
  
    \author{
     Renaud Dubois}
-  
+    
    \institute{
      \textregistered Ledger\\ 
      6 rue Gretry, 75002 Paris -- France\\
-     firstname.lastname@ledger.fr
+     firstname.lastname@ledger.fr\\
+     {(\bf {\today})}
    }
 
 
@@ -315,7 +320,7 @@ The first well known way to commit is to commit to the hash of a value. In this 
 \label{section-sig}
 
 \subsubsection{Schnorr Signature}
-Schnorr signatures \cite{Schnorr89} are almost as old as ECDSA, which was selected mainly because Schnorr used to be covered by patents (now expired), limiting its adoption. Due to some different favorable algebraic properties, it is feasible to convey additive properties into the computation. Doing so, combining SS \cite{Shamir79} with Schnorr provide threshold signature, combining with Groth signatures, it enable Sibling Signatures leading to AC \cite{CamenischDD17}. It leads to Multisignature by enabling key aggregation (\cite{Musig2}). The diversity of such ZK-friendly constructions is very high. This richness is such that the Bitcoin community (prudent among blockchain ones) is waiting for its adoption through BIP340 \cite{BIP340}. 
+Schnorr signatures \citeLink{Schnorr89} are almost as old as ECDSA, which was selected mainly because Schnorr used to be covered by patents (now expired), limiting its adoption. Due to some different favorable algebraic properties, it is feasible to convey additive properties into the computation. Doing so, combining SS \cite{Shamir79} with Schnorr provide threshold signature, combining with Groth signatures, it enable Sibling Signatures leading to AC \cite{CamenischDD17}. It leads to Multisignature by enabling key aggregation (\citeLink{Musig2}). The diversity of such ZK-friendly constructions is very high. This richness is such that the Bitcoin community (prudent among blockchain ones) is waiting for its adoption through BIP340 \cite{BIP340}. 
  
 
 \subsubsection{Groth Signature}
@@ -343,6 +348,9 @@ A zero-knowledge protocol or proof (ZKP) is a method by which one party (the pro
 Groth’s constant size NIZK argument is based on constructing a set of polynomial equations and using pairings to efficiently verify these equations.
 
 \subsubsection{Commit-and-prove ZKsnarks}
+
+\subsubsection{RangeProofs}
+BulletProof \cite{BulletProof} provides a logarithmic sized (in witness size) proof.
 
 \subsubsection{LegoSnark: gadget for Commitments}
 
@@ -425,7 +433,7 @@ In this section we provide a list of Ledgers services which could benefit to an 
 
 \subsection{Protect.} In \href{https://ledgerhq.atlassian.net/wiki/spaces/TrustServices/pages/3548971279/Protect+Arch+Crypto+Protocol+Specification}{Protect}, the seed element (input to the BIP32 protocol, the core of all user security) is stored via a threshold mechanism which is a VSS (verifiable Secret Sharing scheme) described in \cite{Pedersen91}. While the scheme is secure under the assumption that the gathering of shares is, it could be a concern if not. The scheme is as secure as the strongest back up provider access control. In the Pedersen VSS, if an attacker success in obtaining one of the share, which is protected by KYC in Protect, the share is known, unless performing a resharing. In a ZKP-VSS scheme \cite{Kate10}, the attacker learns nothing if the reconstruction fails.
 
-\subsection{Device ID: Airdrop} One of the application of the \href{https://ledgerhq.atlassian.net/wiki/spaces/TA/pages/3557261398/ARCH+DRAFT+Device+identification}{Device Identifier} (which is a very risky initiative in term of Privacy) is to perform Airdrops to the owner of nanos. As for the genuine check, the sender learns the device public key. Using a linkable signature \cite{RingCT} would provide the desired service, without having the sender learning nothing except the eligibility to the service.
+\subsection{Device ID: Airdrop} One of the application of the \href{https://ledgerhq.atlassian.net/wiki/spaces/TA/pages/3557261398/ARCH+DRAFT+Device+identification}{Device Identifier} (which is a very risky initiative in term of Privacy) is to perform Airdrops to the owner of nanos. As for the genuine check, the sender learns the device public key. Using a linkable signature \citeLink{Triptych} would provide the desired service, without having the sender learning nothing except the eligibility to the service.
 
 \subsection{Supporting Bitcoin evolutions: Musig2}
 
@@ -464,7 +472,7 @@ while Nano can focus on low-level primitives, the back end will have to imagine 
 \section{Conclusion} 
 
 This notes provides an overview of some privacy preserving tools and principles. We also provide a non exhaustive list of applications that could immediately benefit from the described mechanisms to {\bf \textregistered Ledger}. Most of those building blocks rely on the use of computation of pairings over elliptic curves. Hence it appears has a prioritary block to implement on Nano in the context of SSI and Web3.0. 
-
+ 
   
 \begin{table}
  \begin{center} 
@@ -482,7 +490,7 @@ This notes provides an overview of some privacy preserving tools and principles.
    \hline
    Linkable signature for Airdrop & Linkable signature for Anonymous Airdrop& 30 \\
    \hline
-   SDK3 for Web3 &Hack the Web3.0 proposal & \\
+   Pairing on Nano &Hack the Web3.0 proposal & {https://github.com/LedgerHQ/innovation/issues/48}\\
    \hline
   \end{tabular}
 
@@ -491,22 +499,30 @@ This notes provides an overview of some privacy preserving tools and principles.
 \end{table}
 
 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIO
 \bibliographystyle{alpha}
 \bibliography{bibprivacy}
 
+ \bibliographystyleLink{alpha}
+ \bibliographyLink{Link}
+ 
+ 
+ 
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% APPENDIX
 \appendix
 \newpage
 {\noindent\huge{\bf Annexes}}
 
 \section{Issues and Roadmap}
-
-
+ 
+ 
 
 \section{Implementation of Pairings}
 
 
 
-\subsection{Pairings used in blockchain framework}
+\subsection{Pairing friendly curves used in blockchain framework}
 %Barreto–Lynn–Scott BLS12, cyclotomic r(x)	12	3	0x8508c00000000001=263+258+256+251+247+246+1	Zexe, eprint 2018/962, Table 16	377	253	p2, 754	4521
 %Barreto–Lynn–Scott BLS12, cyclotomic r(x)	12	3	-0xd201000000010000=-263-262-260-257-248-216	ZCash	381	255	p2, 762	4569
 
@@ -521,6 +537,8 @@ This notes provides an overview of some privacy preserving tools and principles.
  Penumbra (Cosmos) & &  \\
  \hline
  Zcash & BLS12-381 & Zcash white paper\\
+ \hline
+ Ethereum 2.0 & BLS12-381 & Ether yellow paper\\
  \hline
 \end{tabular}
 \end{center}
@@ -541,7 +559,9 @@ Note that if element of $G_2$ are public elements, it is possible to avoid the I
 
 
 \section{Linkable Signature for Anonymous Airdrop}
-
+\input{linkablesig.tex}
+ 
+  
 \section{Strongly Verifiable Secret Sharing for Seed Protection}
 
 \section{Schemes and Assumptions}
@@ -562,7 +582,7 @@ Note that if element of $G_2$ are public elements, it is possible to avoid the I
 \section{Available ZKP primitives implementations}
 Libsec256k1 is an absolute reference for its concisness and efficiency. Arkwork is widely used and should be considered as a target for ledger rust bindings. blst is clear and concise C pairing based library, retained as target for the hackaton. Other libraries are given for completeness. 
 % 
-% \begin{table}[h!]
+ \begin{table}[h!]
  \begin{center}
  \begin{tabular}{|c|c|c|c|}
   \hline
@@ -574,7 +594,7 @@ Libsec256k1 is an absolute reference for its concisness and efficiency. Arkwork 
   \hline
   Arkwork & rust & & \\
   \hline
-  Snarkjs & js, &Groth16, PLONK& \href{https://github.com/iden3/snarkjs}{iden3}\\
+  Snarkjs & js, &Groth16, PLONK \cite{plonk} & \href{https://github.com/iden3/snarkjs}{iden3}\\
   java library for zkSNARKs &Web Assembly&&\\
   \hline
   LegoSnark & C++ & \cite{LegoSnark} & \href{https://github.com/imdea-software/legosnark}{imdea}\\
@@ -590,7 +610,13 @@ libStark & C++& Zk-Stark & \href{https://github.com/elibensasson/libSTARK}{libST
 \hline
  \end{tabular} 
  \end{center}
-% \caption{Available ZKP primitives implementations}
-% \end{table}
+ \caption{Available ZKP primitives implementations}
+ \end{table}
+
+\section{Starks}
+
+Starks stand for Scalable and Transparent argument of knowledge. While they are using common tools to other ZKP primitives, their aim is to provide a verifiable delegation of computation. Thus they are not design to provide privacy features, but to accomplish ZK roll ups. 
+
+
 
 \end{document}
